@@ -1,0 +1,9 @@
+com\jrshine\userauth\model\JwtResponse.class
+com\jrshine\userauth\config\JwtTokenUtil.class
+com\jrshine\userauth\model\JwtRequest.class
+com\jrshine\userauth\config\WebSecurityConfig.class
+com\jrshine\userauth\controller\JwtAuthenticationController.class
+com\jrshine\userauth\config\JwtAuthenticationEntryPoint.class
+com\jrshine\userauth\UserAuthApplication.class
+com\jrshine\userauth\service\JwtUserDetailsService.class
+com\jrshine\userauth\config\JwtRequestFilter.class
