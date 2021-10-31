@@ -1,4 +1,4 @@
-# ridemgmt
+# Ride Management System
 The ride management application is developed using microservices and has below functionalities : 
 
   1. Register Driver
