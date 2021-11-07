@@ -15,4 +15,6 @@ Technologies used are :
   1. Spring Boot
   2. Spring Security
   3. MySQL. Will be moved to NoSQL - MongoDB
-  4. Docker and Jenkins
+  4. Redis for cache handling
+  5. RabbitMQ for mail sending and other async transactions
+  6. Docker and Jenkins
