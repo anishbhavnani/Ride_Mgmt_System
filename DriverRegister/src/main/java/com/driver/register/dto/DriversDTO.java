@@ -32,20 +32,20 @@ public class DriversDTO implements Serializable{
 	private int id;
 			
 	@Email(message = "Please provide a valid e-mail")
-	@NotEmpty(message = "Please provide an e-mail")
+	@NotEmpty(message = "{driver.email.required}")
     private String email;
      
-	@NotEmpty(message = "Please enter password")
+	@NotEmpty(message = "{driver.password.required}")
     private String password;
 	
-	@NotEmpty(message = "Please enter confirm password")
+	@NotEmpty(message = "{driver.cfpassword.required}")
 	@Transient
     private String confirmpassword;
      
-	@NotEmpty(message = "Please provide your first name")
+	@NotEmpty(message = "{driver.firstname.required}")
     private String first_name;
      
-	@NotEmpty(message = "Please provide your last name")
+	@NotEmpty(message = "{driver.lastname.required}")
     private String last_name;
 	
 	private int countrycode;

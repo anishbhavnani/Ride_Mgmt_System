@@ -1,20 +1,15 @@
 package com.driver.register.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import com.driver.register.model.Address;
 import com.driver.register.model.Driver;
-import com.driver.register.repository.DriverRepository;
 
 @Service
-public class DriverService {
+public interface DriverService {
 	
-	@Autowired
-	private DriverRepository userRepository;
-	
-	public Driver createUser(Driver user) {
-		return userRepository.save(user);
-	}
-
+	public Driver addDriver(Driver user);
+	Driver findAddressById(Integer id);
+	Page<Driver> getAllAddress(Integer page,Integer size);
+	Driver updateDriver(Driver driver);
+	void deleteDriver(Integer id);
 }

@@ -9,12 +9,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.driver.register.dto.AddressDTO;
 import com.driver.register.dto.DriversDTO;
@@ -23,6 +27,7 @@ import com.driver.register.model.Driver;
 import com.driver.register.service.AddressService;
 import com.driver.register.service.DriverService;
 
+@Validated
 @RestController
 @CrossOrigin
 public class DriverController {
@@ -48,6 +53,7 @@ public class DriverController {
 	}
 	
 	@PostMapping("/registerDriver")
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Driver> createUser(@Valid @RequestBody DriversDTO driverDTO){
 		System.out.println("User register");
 		
@@ -65,26 +71,46 @@ public class DriverController {
 		newDriver.setUpdated_date(LocalDate.now());
 		newDriver.setStatus("R");
 		
-		userService.createUser(newDriver);
+		userService.addDriver(newDriver);
 		return new ResponseEntity<Driver>(newDriver, HttpStatus.CREATED);
 	}
 	
 	
 	@PostMapping("/addAddress")
-	public ResponseEntity<String> addAddress(@Valid @RequestBody List<AddressDTO> addressDTO){
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<String> addAddress(@RequestBody List<@Valid AddressDTO> addressDTO){
 		
 		for(AddressDTO add:addressDTO) {
+			/*
+			 * Validator validator=createValidator(); Set<ConstraintViolation<AddressDTO>>
+			 * violations=validator.validate(add); if(violations.size()!=0) {
+			 * for(ConstraintViolation cv:violations) { System.out.println("Error : "+cv.);
+			 * } }
+			 */
 			Address newAddress = modelMapper.map(add,Address.class);//new Driver();		
 			newAddress.setCreated_by(123);
 			newAddress.setCreated_date(LocalDate.now());
 			newAddress.setUpdated_by(123);
 			newAddress.setUpdated_date(LocalDate.now());
 			newAddress.setType(add.getType());
-			newAddress.setDriverId(add.getDriver_id());
+			newAddress.setDriverId(add.getDriver_id());			
 			addressService.addAddress(newAddress);
 		}
 		
 		return new ResponseEntity<String>("Status", HttpStatus.CREATED);
 	}
+	
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void updateAddress(@PathVariable("id") Long  id, @RequestBody Address address)
+	{
+		addressService.updateAddress(address);
+	}
+	/*
+	 * public static Validator createValidator() { Configuration<?>
+	 * config=Validation.byDefaultProvider().configure(); ValidatorFactory
+	 * factory=config.buildValidatorFactory(); Validator
+	 * validator=factory.getValidator(); factory.close(); return validator; }
+	 */
 
 }

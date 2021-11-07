@@ -1,21 +1,17 @@
 package com.driver.register.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.driver.register.model.Address;
-import com.driver.register.repository.AddressRepository;
 
 @Service
-public class AddressService {
-	
-	@Autowired
-	private AddressRepository addressRepository;
-	
-
-	public Address addAddress(Address newAddress) {
-		// TODO Auto-generated method stub
-		return addressRepository.save(newAddress);
-	}	
-
+public interface AddressService {
+		
+	Address addAddress(Address newAddress);
+	Address findAddressById(Integer id);
+	List<Address> findAll();
+	Address updateAddress(Address address);
+	void deleteAddress(Integer id);
 }
